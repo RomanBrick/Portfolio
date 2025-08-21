@@ -1,3 +1,6 @@
+// Debug logging
+console.log('Script loaded successfully');
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -173,34 +176,69 @@ document.addEventListener('DOMContentLoaded', () => {
         downloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Create a temporary link element
-            const link = document.createElement('a');
-            link.href = 'resume/Roman_Goryachev_Resume.pdf'; // Update this path to your actual resume file
-            link.download = 'Roman_Goryachev_DevOps_Resume.pdf';
+            // Show immediate feedback
+            console.log('Download button clicked');
             
-            // Temporarily add to body, click, and remove
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            // Optional: Show a toast/notification
-            showDownloadToast();
+            try {
+                // Method 1: Try direct download
+                const link = document.createElement('a');
+                link.href = './resume/Roman_Goryachev_Resume.pdf';
+                link.download = 'Roman_Goryachev_DevOps_Resume.pdf';
+                
+                // Add to document
+                document.body.appendChild(link);
+                
+                // Try to trigger download
+                link.click();
+                
+                // Clean up
+                document.body.removeChild(link);
+                
+                // Show success toast
+                showDownloadToast('success');
+                console.log('Download method 1 attempted');
+                
+                // Fallback: Open in new tab after a short delay
+                setTimeout(() => {
+                    const fallbackLink = document.createElement('a');
+                    fallbackLink.href = './resume/Roman_Goryachev_Resume.pdf';
+                    fallbackLink.target = '_blank';
+                    document.body.appendChild(fallbackLink);
+                    fallbackLink.click();
+                    document.body.removeChild(fallbackLink);
+                    console.log('Fallback method executed');
+                }, 500);
+                
+            } catch (error) {
+                console.error('Download error:', error);
+                // Fallback: Direct navigation
+                window.open('./resume/Roman_Goryachev_Resume.pdf', '_blank');
+                showDownloadToast('success');
+            }
         });
+    } else {
+        console.error('Download button not found');
     }
 });
 
 // Show download toast notification
-function showDownloadToast() {
+function showDownloadToast(type = 'success') {
     const toast = document.createElement('div');
     toast.className = 'download-toast';
-    toast.innerHTML = '<i class="fas fa-check-circle"></i> Resume download started!';
+    
+    if (type === 'success') {
+        toast.innerHTML = '<i class="fas fa-check-circle"></i> Resume download started!';
+        toast.style.background = '#10b981';
+    } else {
+        toast.innerHTML = '<i class="fas fa-exclamation-circle"></i> Download failed. Please try again.';
+        toast.style.background = '#ef4444';
+    }
     
     // Add toast styles
-    toast.style.cssText = `
+    toast.style.cssText += `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: #10b981;
         color: white;
         padding: 12px 20px;
         border-radius: 8px;
@@ -210,6 +248,9 @@ function showDownloadToast() {
         transition: all 0.3s ease;
         font-weight: 500;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     `;
     
     document.body.appendChild(toast);
@@ -225,7 +266,9 @@ function showDownloadToast() {
         toast.style.opacity = '0';
         toast.style.transform = 'translateY(-20px)';
         setTimeout(() => {
-            document.body.removeChild(toast);
+            if (document.body.contains(toast)) {
+                document.body.removeChild(toast);
+            }
         }, 300);
     }, 3000);
 }
