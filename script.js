@@ -164,3 +164,68 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Download Resume functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const downloadBtn = document.getElementById('downloadResume');
+    
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Create a temporary link element
+            const link = document.createElement('a');
+            link.href = 'resume/Roman_Goryachev_Resume.pdf'; // Update this path to your actual resume file
+            link.download = 'Roman_Goryachev_DevOps_Resume.pdf';
+            
+            // Temporarily add to body, click, and remove
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Optional: Show a toast/notification
+            showDownloadToast();
+        });
+    }
+});
+
+// Show download toast notification
+function showDownloadToast() {
+    const toast = document.createElement('div');
+    toast.className = 'download-toast';
+    toast.innerHTML = '<i class="fas fa-check-circle"></i> Resume download started!';
+    
+    // Add toast styles
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #10b981;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 3000);
+}
