@@ -1,6 +1,151 @@
 // Debug logging
 console.log('Script loaded successfully');
 
+// Dark Mode Toggle
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference or default to 'light'
+const currentTheme = localStorage.getItem('theme') || 'light';
+html.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme);
+
+themeToggle.addEventListener('click', () => {
+    const theme = html.getAttribute('data-theme');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    if (theme === 'dark') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    }
+}
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+});
+
+// Back to Top Button
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Active Navigation Link on Scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// Scroll Reveal Animation
+const revealElements = document.querySelectorAll('.project-card, .skill-category, .timeline-item, .about-text');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('reveal', 'active');
+        }
+    });
+}, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+});
+
+revealElements.forEach(el => {
+    el.classList.add('reveal');
+    revealObserver.observe(el);
+});
+
+// Counter Animation for Metrics
+const counterElements = document.querySelectorAll('.metric-value');
+
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+            entry.target.classList.add('counted');
+            animateCounter(entry.target);
+        }
+    });
+}, {
+    threshold: 0.5
+});
+
+function animateCounter(element) {
+    const target = element.textContent;
+    const isPercentage = target.includes('%');
+    const hasPlus = target.includes('+');
+    const numericValue = parseFloat(target.replace(/[^\d.]/g, ''));
+    
+    let current = 0;
+    const increment = numericValue / 50;
+    const duration = 2000;
+    const stepTime = duration / 50;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= numericValue) {
+            current = numericValue;
+            clearInterval(timer);
+        }
+        
+        let displayValue = Math.floor(current);
+        if (target.includes('TB')) {
+            element.textContent = displayValue + 'TB' + (hasPlus ? '+' : '');
+        } else if (target.includes('M')) {
+            element.textContent = displayValue + 'M' + (hasPlus ? '+' : '');
+        } else if (target.includes('K')) {
+            element.textContent = displayValue + 'K' + (hasPlus ? '+' : '');
+        } else if (isPercentage) {
+            element.textContent = displayValue + '%';
+        } else {
+            element.textContent = displayValue + (hasPlus ? '+' : '');
+        }
+    }, stepTime);
+}
+
+counterElements.forEach(el => counterObserver.observe(el));
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -33,11 +178,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Navbar background change on scroll
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
+    const theme = html.getAttribute('data-theme');
+    
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        if (theme === 'dark') {
+            navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        }
         navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        if (theme === 'dark') {
+            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        }
         navbar.style.boxShadow = 'none';
     }
 });

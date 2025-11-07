@@ -9,6 +9,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Floating CTA Button -->
+    <a href="#contact" class="floating-cta">
+        <i class="fas fa-comments"></i>
+        <span>Let's Talk</span>
+    </a>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -60,6 +79,17 @@
                 <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                 <a href="#" class="btn btn-download" id="downloadResume">
                     <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/RomanBrick" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/roman-goryachev" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:your.email@example.com" class="social-link" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
                 </a>
             </div>
         </div>
@@ -207,6 +237,24 @@
                         </ul>
                     </div>
                 </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2019 - May 2021</div>
+                    <div class="timeline-content">
+                        <h3>Systems Engineer / DevOps</h3>
+                        <h4>Previous Company</h4>
+                        <p>Managed infrastructure automation, system administration, and deployment processes. 
+                           Built foundational DevOps practices and maintained production systems.</p>
+                        <ul>
+                            <li>Administered Linux and Windows servers supporting production applications</li>
+                            <li>Automated deployment processes using Bash and PowerShell scripts</li>
+                            <li>Implemented monitoring solutions using Zabbix and Nagios</li>
+                            <li>Maintained VPN infrastructure and network security protocols</li>
+                            <li>Collaborated with development teams to improve deployment workflows</li>
+                            <li>Managed backup and disaster recovery procedures</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -261,6 +309,18 @@
                         <h4>Arizona State University</h4>
                         <p class="education-date">Dec 2023</p>
                         <p>Advanced mathematical foundations for engineering applications.</p>
+                    </div>
+                </div>
+                
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Bachelor of Science - BS</h3>
+                        <h4>Siberian Federal University</h4>
+                        <p class="education-date">1999 - 2006</p>
+                        <p>General science curriculum with foundations in scientific methodology and analytical thinking.</p>
                     </div>
                 </div>
             </div>
@@ -324,7 +384,7 @@
                            and enhanced reliability frameworks.</p>
                         <div class="project-metrics">
                             <div class="metric">
-                                <span class="metric-value">5+</span>
+                                <span class="metric-value">10+</span>
                                 <span class="metric-label">Kubernetes Nodes</span>
                             </div>
                             <div class="metric">
