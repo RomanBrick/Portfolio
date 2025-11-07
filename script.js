@@ -1,34 +1,45 @@
-// Debug logging
-console.log('Script loaded successfully');
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Debug logging
+    console.log('Script loaded successfully');
+    console.log('DOM fully loaded and parsed');
 
-// Dark Mode Toggle
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-const themeIcon = themeToggle.querySelector('i');
-
-// Check for saved theme preference or default to 'light'
-const currentTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', currentTheme);
-updateThemeIcon(currentTheme);
-
-themeToggle.addEventListener('click', () => {
-    const theme = html.getAttribute('data-theme');
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
     
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-});
-
-function updateThemeIcon(theme) {
-    if (theme === 'dark') {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
+    if (!themeToggle) {
+        console.error('Theme toggle button not found!');
+        return;
     }
-}
+    
+    const themeIcon = themeToggle.querySelector('i');
+
+    // Check for saved theme preference or default to 'light'
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    console.log('Initial theme:', currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const theme = html.getAttribute('data-theme');
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        
+        console.log('Theme toggle clicked, switching from', theme, 'to', newTheme);
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+        if (theme === 'dark') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+    }
 
 // Scroll Progress Bar
 window.addEventListener('scroll', () => {
@@ -116,6 +127,11 @@ function animateCounter(element) {
     const isPercentage = target.includes('%');
     const hasPlus = target.includes('+');
     const numericValue = parseFloat(target.replace(/[^\d.]/g, ''));
+    
+    // Skip animation for non-numeric values like "Real-time"
+    if (isNaN(numericValue) || numericValue === 0) {
+        return;
+    }
     
     let current = 0;
     const increment = numericValue / 50;
@@ -427,3 +443,5 @@ function showDownloadToast(type = 'success') {
         }, 300);
     }, 3000);
 }
+
+}); // End of DOMContentLoaded
