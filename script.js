@@ -4,50 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Script loaded successfully');
     console.log('DOM fully loaded and parsed');
 
-    // Dark Mode Toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    
-    if (!themeToggle) {
-        console.error('Theme toggle button not found!');
-        return;
-    }
-    
-    const themeIcon = themeToggle.querySelector('i');
-
-    // Check for saved theme preference or default to 'light'
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-    console.log('Initial theme:', currentTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const theme = html.getAttribute('data-theme');
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        
-        console.log('Theme toggle clicked, switching from', theme, 'to', newTheme);
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('scrollProgress').style.width = scrolled + '%';
     });
-
-    function updateThemeIcon(theme) {
-        if (theme === 'dark') {
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-        } else {
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-        }
-    }
-
-// Scroll Progress Bar
-window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    document.getElementById('scrollProgress').style.width = scrolled + '%';
-});
 
 // Back to Top Button
 const backToTop = document.getElementById('backToTop');
