@@ -407,4 +407,82 @@ function showDownloadToast(type = 'success') {
     }, 3000);
 }
 
-}); // End of DOMContentLoaded
+// Share Credential Function
+function shareCredential() {
+    const credentialUrl = 'https://www.credential.net/c2032b57-f172-48cc-8058-b7ed8d50ee0b';
+    const title = 'Professional Certificate in Data Engineering - MIT xPRO';
+    const text = 'Check out my Professional Certificate in Data Engineering from MIT xPRO!';
+    
+    // Check if Web Share API is supported
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            text: text,
+            url: credentialUrl
+        })
+        .then(() => console.log('Shared successfully'))
+        .catch((error) => console.log('Error sharing:', error));
+    } else {
+        // Fallback: Copy to clipboard
+        navigator.clipboard.writeText(credentialUrl)
+            .then(() => {
+                showShareToast('success');
+            })
+            .catch(() => {
+                showShareToast('error');
+            });
+    }
+}
+
+// Show share toast notification
+function showShareToast(type) {
+    const toast = document.createElement('div');
+    toast.className = 'share-toast';
+    
+    if (type === 'success') {
+        toast.innerHTML = '<i class="fas fa-check-circle"></i> Link copied to clipboard!';
+        toast.style.background = '#10b981';
+    } else {
+        toast.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed to copy. Please try again.';
+        toast.style.background = '#ef4444';
+    }
+    
+    toast.style.cssText += `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            if (document.body.contains(toast)) {
+                document.body.removeChild(toast);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Make shareCredential available globally
+window.shareCredential = shareCredential;
+

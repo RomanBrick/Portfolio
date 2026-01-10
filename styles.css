@@ -586,6 +586,224 @@ body {
     line-height: 1.6;
 }
 
+/* Certificate Badge Styles */
+.certificate-badge-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-top: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.certificate-badge-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+}
+
+.certificate-badge {
+    position: relative;
+    z-index: 1;
+}
+
+.badge-ribbon {
+    position: absolute;
+    top: 20px;
+    right: -35px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 8px 40px;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-ribbon i {
+    font-size: 1rem;
+}
+
+.badge-image-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.badge-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.certificate-badge-card:hover .badge-image {
+    transform: scale(1.05);
+}
+
+.badge-content {
+    color: white;
+}
+
+.badge-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.badge-institution {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #fbbf24;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge-institution i {
+    color: #fbbf24;
+}
+
+.badge-date {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.badge-date i {
+    color: #fbbf24;
+}
+
+.badge-description {
+    color: #f3f4f6;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.badge-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.badge-verify-btn,
+.badge-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    font-family: 'Inter', sans-serif;
+}
+
+.badge-verify-btn {
+    background: white;
+    color: #667eea;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.badge-verify-btn:hover {
+    background: #f9fafb;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.badge-share-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    backdrop-filter: blur(10px);
+}
+
+.badge-share-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.badge-issuer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e5e7eb;
+    font-size: 0.9rem;
+}
+
+.issuer-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: white;
+    padding: 2px;
+}
+
+/* Responsive Certificate Badge */
+@media (max-width: 768px) {
+    .certificate-badge-card {
+        grid-column: 1;
+    }
+    
+    .badge-title {
+        font-size: 1.3rem;
+    }
+    
+    .badge-ribbon {
+        right: -40px;
+        padding: 6px 35px;
+        font-size: 0.75rem;
+    }
+    
+    .badge-actions {
+        flex-direction: column;
+    }
+    
+    .badge-verify-btn,
+    .badge-share-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* Experience Section */
 .experience {
     padding: 100px 20px;
