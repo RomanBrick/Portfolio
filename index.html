@@ -40,6 +40,9 @@
                     <a href="#projects" class="nav-link">Projects</a>
                 </li>
                 <li class="nav-item">
+                    <a href="#clinical-ml" class="nav-link">Clinical ML</a>
+                </li>
+                <li class="nav-item">
                     <a href="#blog" class="nav-link">Blog</a>
                 </li>
                 <li class="nav-item">
@@ -697,6 +700,111 @@
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clinical ML Section -->
+    <section id="clinical-ml" class="clinical-ml">
+        <div class="container">
+            <h2 class="section-title">Clinical ML</h2>
+            <p class="section-subtitle">
+                Applied machine learning and data engineering for clinical decision support.
+            </p>
+            
+            <div class="clinical-ml-content">
+                <!-- One-liner -->
+                <div class="clinical-ml-intro">
+                    <p>
+                        I am building an applied clinical machine learning project focused on
+                        <strong>risk stratification and decision support</strong>, not automated diagnosis.
+                        The goal is to design a system that is technically sound, interpretable,
+                        and aligned with real healthcare constraints.
+                    </p>
+                </div>
+
+                <!-- Context -->
+                <div class="clinical-ml-section">
+                    <h3>Why this project</h3>
+                    <p>
+                        I come from a clinical background (former oncologist) and a strong engineering background
+                        (DevOps / Platform engineering).
+                        Recently, I completed an <strong>MIT Data Engineering certification</strong>
+                        and am preparing to start an <strong>MBA</strong>.
+                    </p>
+                    <p>
+                        This project sits at the intersection of these areas and serves as a practical way
+                        to connect clinical domain knowledge, data engineering, machine learning,
+                        and decision-making trade-offs.
+                    </p>
+                </div>
+
+                <!-- What is built -->
+                <div class="clinical-ml-section">
+                    <h3>What is being built</h3>
+                    <ul class="clinical-ml-list">
+                        <li>Admission-level feature tables from structured clinical data</li>
+                        <li>End-to-end data preprocessing and modeling pipeline</li>
+                        <li>Baseline clinical ML model with strict leakage prevention</li>
+                        <li>Interpretability-first evaluation (no black-box optimization)</li>
+                    </ul>
+                </div>
+
+                <!-- Architecture diagram -->
+                <div class="clinical-ml-section">
+                    <h3>High-level architecture</h3>
+                    <p>
+                        The system is designed as a modular pipeline where the data source can be replaced
+                        (open datasets → restricted ICU datasets) without changing downstream logic.
+                    </p>
+                    <div class="architecture-diagram">
+                        <div class="arch-step">
+                            <div class="arch-box">Raw Clinical Data</div>
+                            <div class="arch-arrow">↓</div>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-box">Data Cleaning & Validation</div>
+                            <div class="arch-arrow">↓</div>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-box">Admission-level Feature Table</div>
+                            <div class="arch-arrow">↓</div>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-box">Preprocessing Pipeline</div>
+                            <div class="arch-arrow">↓</div>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-box">Baseline ML Model</div>
+                            <div class="arch-arrow">↓</div>
+                        </div>
+                        <div class="arch-step">
+                            <div class="arch-box">Risk Scores & Interpretation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current status -->
+                <div class="clinical-ml-section">
+                    <h3>Current status</h3>
+                    <p>
+                        <strong>Baseline completed.</strong>
+                        The current model demonstrates that using aggregated tabular data
+                        and a simple, interpretable approach, it is possible to identify
+                        a meaningful portion of high-risk admissions,
+                        at the cost of increased false alerts.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div class="clinical-ml-section">
+                    <h3>Links</h3>
+                    <ul class="clinical-ml-links">
+                        <li><a href="https://github.com/RomanBrick" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code (GitHub)</a></li>
+                        <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-alt"></i> Project brief</a></li>
+                        <li><a href="#" target="_blank" rel="noopener noreferrer"><i class="fas fa-lightbulb"></i> What I learned building this</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
